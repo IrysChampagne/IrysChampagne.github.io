@@ -203,6 +203,7 @@
     overflow: hidden;
     cursor: grab;
     position: relative;
+    z-index: 10;
   }
   #viewport.grabbing { cursor: grabbing; }
 
@@ -338,7 +339,7 @@ function revealMosaic() {
   const portraitScreen = document.getElementById('portrait-screen');
   portraitScreen.classList.add('hiding');
   setTimeout(() => {
-    portraitScreen.remove();
+    portraitScreen.style.display = 'none';
     toolbar.classList.add('visible');
     hint.classList.add('visible');
     resetView();
