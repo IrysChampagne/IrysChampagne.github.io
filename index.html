@@ -26,9 +26,8 @@
     overflow: hidden;
   }
 
-  /* ── Cover screen ── */
   #cover {
-    position: fixed; inset: 0; z-index: 100;
+    position: fixed; inset: 0; z-index: 300;
     background: var(--cream);
     display: flex; flex-direction: column;
     align-items: center; justify-content: center;
@@ -40,269 +39,161 @@
     from { opacity: 0; transform: translateY(16px); }
     to   { opacity: 1; transform: translateY(0); }
   }
-
-  #cover.hiding {
-    animation: hideCover 0.9s ease forwards;
-  }
   @keyframes hideCover {
     to { opacity: 0; pointer-events: none; }
   }
 
+  #cover.hiding { animation: hideCover 0.9s ease forwards; }
+
   .cover-ornament {
-    font-size: 2rem;
-    color: var(--rose);
-    letter-spacing: 0.4em;
+    font-size: 2rem; color: var(--rose); letter-spacing: 0.4em;
     animation: fadeInCover 1.6s 0.3s ease both;
   }
-
   .cover-title {
-    font-size: clamp(2.8rem, 8vw, 6rem);
-    font-weight: 300;
-    line-height: 1.1;
-    text-align: center;
-    color: var(--deep);
+    font-size: clamp(2.8rem, 8vw, 6rem); font-weight: 300;
+    line-height: 1.1; text-align: center; color: var(--deep);
     animation: fadeInCover 1.6s 0.5s ease both;
   }
-
-  .cover-title em {
-    font-style: italic;
-    color: var(--rose);
-  }
-
+  .cover-title em { font-style: italic; color: var(--rose); }
   .cover-sub {
-    font-size: 1.05rem;
-    font-weight: 300;
-    letter-spacing: 0.12em;
-    color: var(--dust);
-    text-align: center;
-    line-height: 1.8;
+    font-size: 1.05rem; font-weight: 300; letter-spacing: 0.12em;
+    color: var(--dust); text-align: center; line-height: 1.8;
     animation: fadeInCover 1.6s 0.8s ease both;
   }
-
   .cover-divider {
-    width: 80px; height: 1px;
-    background: var(--dust);
+    width: 80px; height: 1px; background: var(--dust);
     animation: fadeInCover 1.6s 1s ease both;
   }
 
   .action-btn {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 0.9rem;
-    font-weight: 400;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--cream);
-    background: var(--deep);
-    border: none;
-    padding: 1rem 2.5rem;
-    cursor: pointer;
+    font-size: 0.9rem; font-weight: 400; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--cream); background: var(--deep);
+    border: none; padding: 1rem 2.5rem; cursor: pointer;
     transition: background 0.3s, transform 0.2s;
     animation: fadeInCover 1.6s 1.2s ease both;
   }
-  .action-btn:hover {
-    background: var(--rose);
-    transform: translateY(-2px);
-  }
+  .action-btn:hover { background: var(--rose); transform: translateY(-2px); }
 
-  /* ── Portrait screen ── */
   #portrait-screen {
-    position: fixed; inset: 0; z-index: 90;
+    position: fixed; inset: 0; z-index: 200;
     background: var(--ink);
     display: none;
     flex-direction: column;
     align-items: center; justify-content: center;
     gap: 2rem;
   }
-  #portrait-screen.visible {
-    display: flex;
-  }
-  #portrait-screen.hiding {
-    animation: hideCover 0.9s ease forwards;
-  }
+  #portrait-screen.visible { display: flex; }
+  #portrait-screen.hiding { animation: hideCover 0.9s ease forwards; }
 
   #portrait-img {
-    max-width: 88vw;
-    max-height: 70vh;
-    object-fit: contain;
+    max-width: 88vw; max-height: 70vh; object-fit: contain;
     box-shadow: 0 8px 60px rgba(0,0,0,0.6);
-    opacity: 0;
-    transform: scale(0.97);
+    opacity: 0; transform: scale(0.97);
     transition: opacity 1s 0.2s ease, transform 1s 0.2s ease;
   }
-  #portrait-img.loaded {
-    opacity: 1;
-    transform: scale(1);
-  }
+  #portrait-img.loaded { opacity: 1; transform: scale(1); }
 
   #portrait-caption {
-    font-size: 1rem;
-    font-style: italic;
-    font-weight: 300;
-    letter-spacing: 0.1em;
-    color: var(--dust);
-    text-align: center;
-    opacity: 0;
-    transition: opacity 1s 0.8s ease;
+    font-size: 1rem; font-style: italic; font-weight: 300;
+    letter-spacing: 0.1em; color: var(--dust); text-align: center;
+    opacity: 0; transition: opacity 1s 0.8s ease;
   }
   #portrait-caption.loaded { opacity: 1; }
 
   #portrait-reveal-btn {
-    opacity: 0;
-    transition: opacity 1s 1.4s ease;
+    opacity: 0; transition: opacity 1s 1.4s ease;
     animation: none !important;
   }
   #portrait-reveal-btn.loaded { opacity: 1; }
 
-  /* ── Main canvas area ── */
   #toolbar {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     display: flex; align-items: center; justify-content: space-between;
     padding: 1rem 2rem;
     background: linear-gradient(to bottom, rgba(248,243,238,0.97) 70%, transparent);
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.8s 0.5s;
+    pointer-events: none; opacity: 0; transition: opacity 0.8s 0.5s;
   }
   #toolbar.visible { opacity: 1; pointer-events: all; }
 
-  .toolbar-title {
-    font-size: 1.1rem;
-    font-style: italic;
-    color: var(--deep);
-    letter-spacing: 0.05em;
-  }
-
-  .zoom-controls {
-    display: flex; gap: 0.5rem; align-items: center;
-  }
+  .toolbar-title { font-size: 1.1rem; font-style: italic; color: var(--deep); letter-spacing: 0.05em; }
+  .zoom-controls { display: flex; gap: 0.5rem; align-items: center; }
   .zoom-btn {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.3rem;
-    width: 36px; height: 36px;
-    border: 1px solid var(--dust);
-    background: var(--cream);
-    color: var(--deep);
-    cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    transition: all 0.2s;
+    font-family: 'Cormorant Garamond', serif; font-size: 1.3rem;
+    width: 36px; height: 36px; border: 1px solid var(--dust);
+    background: var(--cream); color: var(--deep); cursor: pointer;
+    display: flex; align-items: center; justify-content: center; transition: all 0.2s;
   }
   .zoom-btn:hover { background: var(--deep); color: var(--cream); }
+  .zoom-label { font-size: 0.8rem; letter-spacing: 0.1em; color: var(--dust); min-width: 48px; text-align: center; }
 
-  .zoom-label {
-    font-size: 0.8rem;
-    letter-spacing: 0.1em;
-    color: var(--dust);
-    min-width: 48px;
-    text-align: center;
-  }
-
-  /* ── Mosaic viewport ── */
   #viewport {
     width: 100%; height: 100%;
-    overflow: hidden;
-    cursor: grab;
-    position: relative;
+    overflow: hidden; cursor: grab; position: relative;
   }
   #viewport.grabbing { cursor: grabbing; }
 
   #mosaic-container {
-    position: absolute;
-    transform-origin: 0 0;
-    will-change: transform;
+    position: absolute; transform-origin: 0 0; will-change: transform;
   }
+  #mosaic-img { display: block; image-rendering: auto; }
 
-  #mosaic-img {
-    display: block;
-    image-rendering: auto;
-  }
-
-  /* ── Tooltip ── */
   #tooltip {
-    position: fixed;
-    background: var(--deep);
-    color: var(--cream);
-    font-size: 0.75rem;
-    letter-spacing: 0.08em;
-    padding: 0.4rem 0.8rem;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.2s;
-    z-index: 60;
-    white-space: nowrap;
+    position: fixed; background: var(--deep); color: var(--cream);
+    font-size: 0.75rem; letter-spacing: 0.08em; padding: 0.4rem 0.8rem;
+    pointer-events: none; opacity: 0; transition: opacity 0.2s; z-index: 60; white-space: nowrap;
   }
   #tooltip.visible { opacity: 1; }
 
-  /* ── Hint bar ── */
   #hint {
-    position: fixed; bottom: 0; left: 0; right: 0;
-    text-align: center;
-    padding: 1.2rem;
-    font-size: 0.75rem;
-    letter-spacing: 0.15em;
-    color: var(--dust);
+    position: fixed; bottom: 0; left: 0; right: 0; text-align: center;
+    padding: 1.2rem; font-size: 0.75rem; letter-spacing: 0.15em; color: var(--dust);
     background: linear-gradient(to top, rgba(248,243,238,0.9) 70%, transparent);
-    opacity: 0;
-    transition: opacity 0.8s 1s;
-    pointer-events: none;
+    opacity: 0; transition: opacity 0.8s 1s; pointer-events: none;
   }
   #hint.visible { opacity: 1; }
 </style>
 </head>
 <body>
 
-<!-- Cover screen -->
 <div id="cover">
   <div class="cover-ornament">✦ &nbsp; ✦ &nbsp; ✦</div>
   <h1 class="cover-title">Pour<br><em>Maman</em></h1>
   <div class="cover-divider"></div>
-  <p class="cover-sub">
-    Un portrait tissé de tous<br>
-    nos moments ensemble.
-  </p>
+  <p class="cover-sub">Un portrait tissé de tous<br>nos moments ensemble.</p>
   <button class="action-btn" onclick="showPortrait()">Découvrir ↓</button>
 </div>
 
-<!-- Portrait screen -->
 <div id="portrait-screen">
   <img id="portrait-img" src="me_mom.jpg" alt="Nous deux">
   <p id="portrait-caption">Regarde de plus près…</p>
   <button id="portrait-reveal-btn" class="action-btn" onclick="revealMosaic()">Voir la surprise ✦</button>
 </div>
 
-<!-- Toolbar -->
 <div id="toolbar">
   <span class="toolbar-title">Pour Maman — Fête des Mères 2026</span>
   <div class="zoom-controls">
-    <button class="zoom-btn" onclick="zoom(-0.3)" title="Zoom out">−</button>
+    <button class="zoom-btn" onclick="zoom(-0.3)">−</button>
     <span class="zoom-label" id="zoom-label">100%</span>
-    <button class="zoom-btn" onclick="zoom(+0.3)" title="Zoom in">+</button>
-    <button class="zoom-btn" onclick="resetView()" title="Reset" style="font-size:0.9rem;letter-spacing:0.05em;width:auto;padding:0 0.8rem;">↺</button>
+    <button class="zoom-btn" onclick="zoom(+0.3)">+</button>
+    <button class="zoom-btn" onclick="resetView()" style="font-size:0.9rem;letter-spacing:0.05em;width:auto;padding:0 0.8rem;">↺</button>
   </div>
 </div>
 
-<!-- Main viewport -->
 <div id="viewport">
   <div id="mosaic-container">
     <img id="mosaic-img" src="https://res.cloudinary.com/dmvo22ugr/image/upload/v1777301501/mosaic_np1j9m.jpg" alt="Mosaïque">
   </div>
 </div>
 
-<!-- Tooltip -->
 <div id="tooltip"></div>
-
-<!-- Hint -->
 <div id="hint">Scroll ou pince pour zoomer &nbsp;·&nbsp; Clique et glisse pour naviguer</div>
 
 <script>
-let scale = 1;
-let originX = 0;
-let originY = 0;
-let isDragging = false;
-let lastX = 0, lastY = 0;
+let scale = 1, originX = 0, originY = 0;
+let isDragging = false, lastX = 0, lastY = 0;
 let manifest = null;
-
-const SCALE_MIN = 0.08;
-const SCALE_MAX = 8;
+const SCALE_MIN = 0.08, SCALE_MAX = 8;
 
 const viewport  = document.getElementById('viewport');
 const container = document.getElementById('mosaic-container');
@@ -311,15 +202,11 @@ const tooltip   = document.getElementById('tooltip');
 const toolbar   = document.getElementById('toolbar');
 const hint      = document.getElementById('hint');
 
-// ── Step 1: cover → portrait ───────────────────────────────────────────────
 function showPortrait() {
   const cover = document.getElementById('cover');
   const portraitScreen = document.getElementById('portrait-screen');
-
-  // Preload mosaic silently while portrait is showing
   const preload = new Image();
   preload.src = 'https://res.cloudinary.com/dmvo22ugr/image/upload/v1777301501/mosaic_np1j9m.jpg';
-
   cover.classList.add('hiding');
   setTimeout(() => {
     cover.style.display = 'none';
@@ -332,40 +219,33 @@ function showPortrait() {
   }, 900);
 }
 
-// ── Step 2: portrait → mosaic ──────────────────────────────────────────────
 function revealMosaic() {
   const portraitScreen = document.getElementById('portrait-screen');
   portraitScreen.classList.add('hiding');
   setTimeout(() => {
     portraitScreen.style.display = 'none';
-    portraitScreen.style.zIndex = '-1';
     toolbar.classList.add('visible');
     hint.classList.add('visible');
     resetView();
   }, 900);
 }
 
-// ── Transform ──────────────────────────────────────────────────────────────
 function applyTransform() {
   container.style.transform = `translate(${originX}px, ${originY}px) scale(${scale})`;
   zoomLabel.textContent = Math.round(scale * 100) + '%';
 }
 
 function clampOrigin() {
-  const vw = viewport.clientWidth;
-  const vh = viewport.clientHeight;
-  const mosaicW = container.offsetWidth  * scale;
-  const mosaicH = container.offsetHeight * scale;
-  const margin = 80;
-  originX = Math.min(margin, Math.max(originX, vw - mosaicW - margin));
-  originY = Math.min(margin, Math.max(originY, vh - mosaicH - margin));
+  const vw = viewport.clientWidth, vh = viewport.clientHeight;
+  const mw = container.offsetWidth * scale, mh = container.offsetHeight * scale;
+  const m = 80;
+  originX = Math.min(m, Math.max(originX, vw - mw - m));
+  originY = Math.min(m, Math.max(originY, vh - mh - m));
 }
 
 function resetView() {
-  const vw = viewport.clientWidth;
-  const vh = viewport.clientHeight;
-  const mw = container.offsetWidth  || 7200;
-  const mh = container.offsetHeight || 4800;
+  const vw = viewport.clientWidth, vh = viewport.clientHeight;
+  const mw = container.offsetWidth || 7200, mh = container.offsetHeight || 4800;
   scale = Math.min(vw / mw, vh / mh) * 0.95;
   originX = (vw - mw * scale) / 2;
   originY = (vh - mh * scale) / 2;
@@ -373,125 +253,66 @@ function resetView() {
 }
 
 function zoom(delta, cx, cy) {
-  cx = cx ?? viewport.clientWidth  / 2;
+  cx = cx ?? viewport.clientWidth / 2;
   cy = cy ?? viewport.clientHeight / 2;
-  const prevScale = scale;
+  const prev = scale;
   scale = Math.max(SCALE_MIN, Math.min(SCALE_MAX, scale + delta * scale));
-  originX = cx - (cx - originX) * (scale / prevScale);
-  originY = cy - (cy - originY) * (scale / prevScale);
+  originX = cx - (cx - originX) * (scale / prev);
+  originY = cy - (cy - originY) * (scale / prev);
   clampOrigin();
   applyTransform();
 }
 
-// ── Drag ───────────────────────────────────────────────────────────────────
-viewport.addEventListener('mousedown', e => {
-  isDragging = true;
-  lastX = e.clientX; lastY = e.clientY;
-  viewport.classList.add('grabbing');
-});
-window.addEventListener('mousemove', e => {
-  if (!isDragging) return;
-  originX += e.clientX - lastX;
-  originY += e.clientY - lastY;
-  lastX = e.clientX; lastY = e.clientY;
-  clampOrigin();
-  applyTransform();
-});
-window.addEventListener('mouseup', () => {
-  isDragging = false;
-  viewport.classList.remove('grabbing');
-});
+viewport.addEventListener('mousedown', e => { isDragging = true; lastX = e.clientX; lastY = e.clientY; viewport.classList.add('grabbing'); });
+window.addEventListener('mousemove', e => { if (!isDragging) return; originX += e.clientX - lastX; originY += e.clientY - lastY; lastX = e.clientX; lastY = e.clientY; clampOrigin(); applyTransform(); });
+window.addEventListener('mouseup', () => { isDragging = false; viewport.classList.remove('grabbing'); });
 
-// ── Scroll zoom ────────────────────────────────────────────────────────────
-viewport.addEventListener('wheel', e => {
-  e.preventDefault();
-  const delta = -e.deltaY * 0.001;
-  zoom(delta, e.clientX, e.clientY);
-}, { passive: false });
+viewport.addEventListener('wheel', e => { e.preventDefault(); zoom(-e.deltaY * 0.001, e.clientX, e.clientY); }, { passive: false });
 
-// ── Pinch zoom (touch) ─────────────────────────────────────────────────────
 let lastPinchDist = null;
-let lastTouchMid = null;
-
-function getTouchMid(touches) {
-  return {
-    x: (touches[0].clientX + touches[1].clientX) / 2,
-    y: (touches[0].clientY + touches[1].clientY) / 2,
-  };
-}
-function getTouchDist(touches) {
-  const dx = touches[0].clientX - touches[1].clientX;
-  const dy = touches[0].clientY - touches[1].clientY;
-  return Math.sqrt(dx*dx + dy*dy);
-}
+function getTouchDist(t) { return Math.hypot(t[0].clientX - t[1].clientX, t[0].clientY - t[1].clientY); }
+function getTouchMid(t) { return { x: (t[0].clientX + t[1].clientX) / 2, y: (t[0].clientY + t[1].clientY) / 2 }; }
 
 viewport.addEventListener('touchstart', e => {
-  if (e.touches.length === 2) {
-    lastPinchDist = getTouchDist(e.touches);
-    lastTouchMid  = getTouchMid(e.touches);
-  } else if (e.touches.length === 1) {
-    lastX = e.touches[0].clientX;
-    lastY = e.touches[0].clientY;
-    isDragging = true;
-  }
+  if (e.touches.length === 2) { lastPinchDist = getTouchDist(e.touches); }
+  else { lastX = e.touches[0].clientX; lastY = e.touches[0].clientY; isDragging = true; }
 }, { passive: true });
 
 viewport.addEventListener('touchmove', e => {
   e.preventDefault();
   if (e.touches.length === 2) {
     isDragging = false;
-    const dist = getTouchDist(e.touches);
-    const mid  = getTouchMid(e.touches);
-    const delta = (dist - lastPinchDist) / lastPinchDist;
-    zoom(delta * 0.6, mid.x, mid.y);
+    const dist = getTouchDist(e.touches), mid = getTouchMid(e.touches);
+    zoom((dist - lastPinchDist) / lastPinchDist * 0.6, mid.x, mid.y);
     lastPinchDist = dist;
-    lastTouchMid  = mid;
-  } else if (isDragging && e.touches.length === 1) {
-    originX += e.touches[0].clientX - lastX;
-    originY += e.touches[0].clientY - lastY;
-    lastX = e.touches[0].clientX;
-    lastY = e.touches[0].clientY;
-    clampOrigin();
-    applyTransform();
+  } else if (isDragging) {
+    originX += e.touches[0].clientX - lastX; originY += e.touches[0].clientY - lastY;
+    lastX = e.touches[0].clientX; lastY = e.touches[0].clientY;
+    clampOrigin(); applyTransform();
   }
 }, { passive: false });
 
-viewport.addEventListener('touchend', () => {
-  lastPinchDist = null;
-  isDragging = false;
-});
+viewport.addEventListener('touchend', () => { lastPinchDist = null; isDragging = false; });
 
-// ── Tile hover tooltip ─────────────────────────────────────────────────────
 async function loadManifest() {
-  try {
-    const r = await fetch('mosaic_manifest.json');
-    manifest = await r.json();
-  } catch (_) {}
+  try { const r = await fetch('mosaic_manifest.json'); manifest = await r.json(); } catch (_) {}
 }
 
 viewport.addEventListener('mousemove', e => {
   if (!manifest || isDragging) { tooltip.classList.remove('visible'); return; }
-  const mx = (e.clientX - originX) / scale;
-  const my = (e.clientY - originY) / scale;
-  const tileW = (container.offsetWidth  || 7200) / manifest.grid_cols;
-  const tileH = (container.offsetHeight || 4800) / manifest.grid_rows;
-  const col = Math.floor(mx / tileW);
-  const row = Math.floor(my / tileH);
-  const key = `${row},${col}`;
-  const filename = manifest.grid[key];
+  const mx = (e.clientX - originX) / scale, my = (e.clientY - originY) / scale;
+  const col = Math.floor(mx / (container.offsetWidth / manifest.grid_cols));
+  const row = Math.floor(my / (container.offsetHeight / manifest.grid_rows));
+  const filename = manifest.grid[`${row},${col}`];
   if (filename) {
-    const name = filename.replace(/\.[^.]+$/, '').replace(/[-_]/g, ' ');
-    tooltip.textContent = name;
+    tooltip.textContent = filename.replace(/\.[^.]+$/, '').replace(/[-_]/g, ' ');
     tooltip.style.left = (e.clientX + 14) + 'px';
-    tooltip.style.top  = (e.clientY - 10) + 'px';
+    tooltip.style.top = (e.clientY - 10) + 'px';
     tooltip.classList.add('visible');
-  } else {
-    tooltip.classList.remove('visible');
-  }
+  } else { tooltip.classList.remove('visible'); }
 });
 viewport.addEventListener('mouseleave', () => tooltip.classList.remove('visible'));
 
-// ── Init ───────────────────────────────────────────────────────────────────
 loadManifest();
 </script>
 </body>
