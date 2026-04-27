@@ -112,7 +112,6 @@
     flex-direction: column;
     align-items: center; justify-content: center;
     gap: 2rem;
-    pointer-events: none;
   }
   #portrait-screen.visible {
     display: flex;
@@ -203,7 +202,6 @@
     overflow: hidden;
     cursor: grab;
     position: relative;
-    z-index: 10;
   }
   #viewport.grabbing { cursor: grabbing; }
 
@@ -340,6 +338,7 @@ function revealMosaic() {
   portraitScreen.classList.add('hiding');
   setTimeout(() => {
     portraitScreen.style.display = 'none';
+    portraitScreen.style.zIndex = '-1';
     toolbar.classList.add('visible');
     hint.classList.add('visible');
     resetView();
