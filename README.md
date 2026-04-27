@@ -3,8 +3,8 @@
 This is supposed to be an official website.  
 Right now it is a Mother’s Day project.
 
-Built quickly. It shows.
-
+Claude, ChatGPT and I spent a good morning on this!
+(gotta juggle to avoid Claude usage limits)
 ---
 
 ## Purpose
