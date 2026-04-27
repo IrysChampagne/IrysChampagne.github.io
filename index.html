@@ -253,35 +253,6 @@
     pointer-events: none;
   }
   #hint.visible { opacity: 1; }
-
-  /* ── Demo placeholder (remove when you have the real mosaic) ── */
-  #demo-placeholder {
-    width: 4800px;
-    height: 6400px;
-    background:
-      repeating-linear-gradient(
-        45deg,
-        #e8ddd2 0px, #e8ddd2 1px,
-        transparent 1px, transparent 60px
-      ),
-      repeating-linear-gradient(
-        -45deg,
-        #e8ddd2 0px, #e8ddd2 1px,
-        transparent 1px, transparent 60px
-      ),
-      var(--warm);
-    display: flex; align-items: center; justify-content: center;
-    position: relative;
-  }
-  #demo-placeholder::after {
-    content: "← Remplace ceci par ta mosaïque →\A mosaic.jpg";
-    white-space: pre;
-    text-align: center;
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 2rem;
-    color: var(--dust);
-    font-style: italic;
-  }
 </style>
 </head>
 <body>
@@ -319,8 +290,6 @@
 <!-- Main viewport -->
 <div id="viewport">
   <div id="mosaic-container">
-      <img id="mosaic-img" src="https://res.cloudinary.com/dmvo22ugr/image/upload/v1777301501/mosaic_np1j9m.jpg" alt="Mosaïque">
-    <div id="demo-placeholder"></div>
   </div>
 </div>
 
