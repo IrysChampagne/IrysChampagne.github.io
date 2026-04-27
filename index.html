@@ -149,16 +149,11 @@
   #portrait-reveal-btn {
     opacity: 0;
     transition: opacity 1s 1.4s ease;
-    animation: none !important; /* override cover animation */
+    animation: none !important;
   }
   #portrait-reveal-btn.loaded { opacity: 1; }
 
   /* ── Main canvas area ── */
-  #app {
-    width: 100%; height: 100%;
-    display: flex; flex-direction: column;
-  }
-
   #toolbar {
     position: fixed; top: 0; left: 0; right: 0; z-index: 50;
     display: flex; align-items: center; justify-content: space-between;
@@ -207,19 +202,17 @@
     overflow: hidden;
     cursor: grab;
     position: relative;
-
+  }
   #viewport.grabbing { cursor: grabbing; }
 
   #mosaic-container {
     position: absolute;
     transform-origin: 0 0;
     will-change: transform;
-    /* The mosaic image fills this container */
   }
 
   #mosaic-img {
     display: block;
-    /* Replace src with your generated mosaic.jpg */
     image-rendering: auto;
   }
 
@@ -290,6 +283,7 @@
 <!-- Main viewport -->
 <div id="viewport">
   <div id="mosaic-container">
+    <img id="mosaic-img" src="https://res.cloudinary.com/dmvo22ugr/image/upload/v1777301501/mosaic_np1j9m.jpg" alt="Mosaïque">
   </div>
 </div>
 
@@ -300,23 +294,22 @@
 <div id="hint">Scroll ou pince pour zoomer &nbsp;·&nbsp; Clique et glisse pour naviguer</div>
 
 <script>
-// ── State ──────────────────────────────────────────────────────────────────
 let scale = 1;
 let originX = 0;
 let originY = 0;
 let isDragging = false;
 let lastX = 0, lastY = 0;
-let manifest = null;   // loaded from mosaic_manifest.json
+let manifest = null;
 
 const SCALE_MIN = 0.08;
 const SCALE_MAX = 8;
 
-const viewport      = document.getElementById('viewport');
-const container     = document.getElementById('mosaic-container');
-const zoomLabel     = document.getElementById('zoom-label');
-const tooltip       = document.getElementById('tooltip');
-const toolbar       = document.getElementById('toolbar');
-const hint          = document.getElementById('hint');
+const viewport  = document.getElementById('viewport');
+const container = document.getElementById('mosaic-container');
+const zoomLabel = document.getElementById('zoom-label');
+const tooltip   = document.getElementById('tooltip');
+const toolbar   = document.getElementById('toolbar');
+const hint      = document.getElementById('hint');
 
 // ── Step 1: cover → portrait ───────────────────────────────────────────────
 function showPortrait() {
@@ -362,17 +355,16 @@ function clampOrigin() {
   const vh = viewport.clientHeight;
   const mosaicW = container.offsetWidth  * scale;
   const mosaicH = container.offsetHeight * scale;
-  // Allow panning up to the edges with some margin
   const margin = 80;
-  originX = Math.min(margin,  Math.max(originX, vw - mosaicW - margin));
-  originY = Math.min(margin,  Math.max(originY, vh - mosaicH - margin));
+  originX = Math.min(margin, Math.max(originX, vw - mosaicW - margin));
+  originY = Math.min(margin, Math.max(originY, vh - mosaicH - margin));
 }
 
 function resetView() {
   const vw = viewport.clientWidth;
   const vh = viewport.clientHeight;
-  const mw = container.offsetWidth  || 4800;
-  const mh = container.offsetHeight || 6400;
+  const mw = container.offsetWidth  || 7200;
+  const mh = container.offsetHeight || 4800;
   scale = Math.min(vw / mw, vh / mh) * 0.95;
   originX = (vw - mw * scale) / 2;
   originY = (vh - mh * scale) / 2;
@@ -382,11 +374,8 @@ function resetView() {
 function zoom(delta, cx, cy) {
   cx = cx ?? viewport.clientWidth  / 2;
   cy = cy ?? viewport.clientHeight / 2;
-
   const prevScale = scale;
   scale = Math.max(SCALE_MIN, Math.min(SCALE_MAX, scale + delta * scale));
-
-  // Zoom toward the cursor / center
   originX = cx - (cx - originX) * (scale / prevScale);
   originY = cy - (cy - originY) * (scale / prevScale);
   clampOrigin();
@@ -471,32 +460,24 @@ viewport.addEventListener('touchend', () => {
   isDragging = false;
 });
 
-// ── Tile hover tooltip (from manifest) ────────────────────────────────────
+// ── Tile hover tooltip ─────────────────────────────────────────────────────
 async function loadManifest() {
   try {
     const r = await fetch('mosaic_manifest.json');
     manifest = await r.json();
-  } catch (_) {
-    // No manifest — tooltip won't show photo names, that's fine
-  }
+  } catch (_) {}
 }
 
 viewport.addEventListener('mousemove', e => {
   if (!manifest || isDragging) { tooltip.classList.remove('visible'); return; }
-
-  // Convert screen coords to mosaic image coords
   const mx = (e.clientX - originX) / scale;
   const my = (e.clientY - originY) / scale;
-
-  const tileW = (container.offsetWidth  || 4800) / manifest.grid_cols;
-  const tileH = (container.offsetHeight || 6400) / manifest.grid_rows;
-
+  const tileW = (container.offsetWidth  || 7200) / manifest.grid_cols;
+  const tileH = (container.offsetHeight || 4800) / manifest.grid_rows;
   const col = Math.floor(mx / tileW);
   const row = Math.floor(my / tileH);
-
   const key = `${row},${col}`;
   const filename = manifest.grid[key];
-
   if (filename) {
     const name = filename.replace(/\.[^.]+$/, '').replace(/[-_]/g, ' ');
     tooltip.textContent = name;
@@ -511,7 +492,6 @@ viewport.addEventListener('mouseleave', () => tooltip.classList.remove('visible'
 
 // ── Init ───────────────────────────────────────────────────────────────────
 loadManifest();
-// resetView is called after cover hides
 </script>
 </body>
 </html>
