@@ -207,6 +207,10 @@
     overflow: hidden;
     cursor: grab;
     position: relative;
+    visibility: hidden;
+  }
+  #viewport.ready {
+    visibility: visible;
   }
   #viewport.grabbing { cursor: grabbing; }
 
@@ -319,7 +323,13 @@
 <!-- Main viewport -->
 <div id="viewport">
   <div id="mosaic-container">
+    <!--
+      OPTION A — Real mosaic (uncomment when ready):
       <img id="mosaic-img" src="mosaic.jpg" alt="Mosaïque">
+
+      OPTION B — Demo placeholder (remove when done):
+    -->
+    <div id="demo-placeholder"></div>
   </div>
 </div>
 
@@ -353,6 +363,10 @@ function showPortrait() {
   const cover = document.getElementById('cover');
   const portraitScreen = document.getElementById('portrait-screen');
 
+  // Preload mosaic silently while portrait is showing
+  const preload = new Image();
+  preload.src = 'mosaic.jpg';
+
   cover.classList.add('hiding');
   setTimeout(() => {
     cover.style.display = 'none';
@@ -371,6 +385,7 @@ function revealMosaic() {
   portraitScreen.classList.add('hiding');
   setTimeout(() => {
     portraitScreen.style.display = 'none';
+    viewport.classList.add('ready');
     toolbar.classList.add('visible');
     hint.classList.add('visible');
     resetView();
