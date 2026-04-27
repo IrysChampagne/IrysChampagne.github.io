@@ -207,10 +207,11 @@
     overflow: hidden;
     cursor: grab;
     position: relative;
-    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.6s ease;
   }
   #viewport.ready {
-    visibility: visible;
+    opacity: 1;
   }
   #viewport.grabbing { cursor: grabbing; }
 
