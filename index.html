@@ -112,6 +112,7 @@
     flex-direction: column;
     align-items: center; justify-content: center;
     gap: 2rem;
+    pointer-events: none;
   }
   #portrait-screen.visible {
     display: flex;
@@ -337,7 +338,7 @@ function revealMosaic() {
   const portraitScreen = document.getElementById('portrait-screen');
   portraitScreen.classList.add('hiding');
   setTimeout(() => {
-    portraitScreen.style.display = 'none';
+    portraitScreen.remove();
     toolbar.classList.add('visible');
     hint.classList.add('visible');
     resetView();
