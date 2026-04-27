@@ -76,7 +76,7 @@ Notes:
 
 ## Step 2 — Upload Mosaic
 
-Use :contentReference[oaicite:0]{index=0}:
+Use https://cloudinary.com
 
 - Create account
 - Upload `mosaic.png` to Media Library
@@ -90,7 +90,7 @@ Use :contentReference[oaicite:0]{index=0}:
 ## Step 3 — Deploy with GitHub Pages
 
 Follow:
-- :contentReference[oaicite:1]{index=1} Quickstart
+- https://docs.github.com/en/pages/quickstart
 
 Stop before editing README.
 
